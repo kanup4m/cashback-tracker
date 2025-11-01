@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.a7359e6a.css",
-    "main.js": "/static/js/main.89c3d0b2.js",
-    "static/js/453.23e59b63.chunk.js": "/static/js/453.23e59b63.chunk.js",
-    "index.html": "/index.html",
-    "main.a7359e6a.css.map": "/static/css/main.a7359e6a.css.map",
-    "main.89c3d0b2.js.map": "/static/js/main.89c3d0b2.js.map",
-    "453.23e59b63.chunk.js.map": "/static/js/453.23e59b63.chunk.js.map"
+    "main.css": "/cashback-tracker/static/css/main.a7359e6a.css",
+    "main.js": "/cashback-tracker/static/js/main.3a4e4bcd.js",
+    "static/js/453.23e59b63.chunk.js": "/cashback-tracker/static/js/453.23e59b63.chunk.js",
+    "index.html": "/cashback-tracker/index.html",
+    "main.a7359e6a.css.map": "/cashback-tracker/static/css/main.a7359e6a.css.map",
+    "main.3a4e4bcd.js.map": "/cashback-tracker/static/js/main.3a4e4bcd.js.map",
+    "453.23e59b63.chunk.js.map": "/cashback-tracker/static/js/453.23e59b63.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a7359e6a.css",
-    "static/js/main.89c3d0b2.js"
+    "static/js/main.3a4e4bcd.js"
   ]
 }
