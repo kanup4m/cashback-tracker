@@ -12,7 +12,6 @@ import TransactionList from './components/transactions/TransactionList';
 import Analytics from './components/analytics/Analytics';
 import Settings from './components/settings/Settings';
 import CommandPalette from './components/common/CommandPalette';
-import OnboardingTour from './components/onboarding/OnboardingTour';
 import { CycleType, CycleDateRange } from './types';
 import { getCycleRange } from './utils/dateUtils';
 import { NotificationScheduler } from './services/notificationScheduler';
@@ -261,10 +260,6 @@ const AppContent: React.FC = () => {
           }}
         />
 
-        {/* Onboarding Tour */}
-        {showOnboarding && (
-          <OnboardingTour onComplete={handleOnboardingComplete} />
-        )}
       </Router>
     </ThemeProvider>
   );
