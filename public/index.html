@@ -3,41 +3,164 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#9C27B0" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Track your credit card cashback earnings with support for Axis Airtel and Flipkart Axis cards. Monitor spending, analyze trends, and maximize your cashback rewards."
     />
+    <meta name="keywords" content="cashback tracker, credit card rewards, axis airtel, flipkart axis, expense tracking, cashback calculator" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Cashback Tracker - Credit Card Rewards Management" />
+    <meta property="og:description" content="Track and maximize your credit card cashback earnings with detailed analytics and insights." />
+    <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Cashback Tracker" />
+    <meta property="twitter:description" content="Track and maximize your credit card cashback earnings." />
+    <meta property="twitter:image" content="%PUBLIC_URL%/og-image.png" />
+    
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>Cashback Tracker - Maximize Your Credit Card Rewards</title>
+    
+    <style>
+      /* Initial loading screen styles */
+      #root {
+        min-height: 100vh;
+      }
+      
+      .initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      
+      .loader-content {
+        text-align: center;
+        color: white;
+      }
+      
+      .loader-logo {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        background: white;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        animation: pulse 2s infinite;
+      }
+      
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 0.8;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      
+      .loader-spinner {
+        width: 40px;
+        height: 40px;
+        margin: 20px auto;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      
+      /* Print styles */
+      @media print {
+        .no-print {
+          display: none !important;
+        }
+        
+        body {
+          background: white !important;
+          color: black !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    <!-- Initial loading screen -->
+    <div id="initial-loader" class="initial-loader">
+      <div class="loader-content">
+        <div class="loader-logo">💳</div>
+        <h1 style="font-size: 24px; margin-bottom: 10px;">Cashback Tracker</h1>
+        <p style="opacity: 0.9; margin-bottom: 20px;">Loading your rewards dashboard...</p>
+        <div class="loader-spinner"></div>
+      </div>
+    </div>
+    
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    
+    <script>
+      // Remove loader once React app is mounted
+      window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          const loader = document.getElementById('initial-loader');
+          if (loader) {
+            loader.style.transition = 'opacity 0.5s';
+            loader.style.opacity = '0';
+            setTimeout(function() {
+              loader.remove();
+            }, 500);
+          }
+        }, 100);
+      });
+      
+      // Handle initial theme preference (before React loads)
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        const root = document.documentElement;
+        
+        if (savedTheme === 'dark') {
+          root.classList.add('dark');
+        } else if (savedTheme === 'light') {
+          root.classList.remove('dark');
+        } else if (savedTheme === 'auto') {
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            root.classList.add('dark');
+          } else {
+            root.classList.remove('dark');
+          }
+        }
+      })();
+    </script>
   </body>
 </html>

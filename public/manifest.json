@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Cashback Tracker",
+  "name": "Cashback Tracker - Credit Card Rewards",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,25 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#9C27B0",
+  "background_color": "#ffffff",
+  "description": "Track your credit card cashback earnings and maximize rewards",
+  "orientation": "portrait",
+  "categories": ["finance", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Add Transaction",
+      "short_name": "Add",
+      "description": "Quickly add a new transaction",
+      "url": "/transactions?action=add",
+      "icons": [{ "src": "/icons/add.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "View Analytics",
+      "short_name": "Analytics",
+      "description": "View cashback analytics",
+      "url": "/analytics",
+      "icons": [{ "src": "/icons/analytics.png", "sizes": "96x96" }]
+    }
+  ]
 }
