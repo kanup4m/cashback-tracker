@@ -341,3 +341,114 @@ button, a, .card-hover {
 html {
   scroll-behavior: smooth;
 }
+
+/* Floating action button - ADD THIS SECTION */
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  
+  /* Purple gradient background */
+  background: linear-gradient(135deg, #be65ce 0%, #7B1FA2 100%);
+  
+  /* White icon color */
+  color: white;
+  
+  /* Shadow for visibility */
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.4),
+              0 2px 8px rgba(0, 0, 0, 0.2);
+  
+  /* Smooth transitions */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(156, 39, 176, 0.6),
+              0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+/* Ripple effect */
+.fab::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.fab:active::before {
+  width: 120%;
+  height: 120%;
+}
+
+/* Make icon larger and visible */
+.fab svg {
+  width: 28px;
+  height: 28px;
+  color: white !important;
+  fill: white !important;
+}
+
+/* Keep these modern styles */
+.text-gradient {
+  @apply bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent;
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for sidebar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
+}

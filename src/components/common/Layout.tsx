@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import NavBar from './NavBar';
 import CycleSelector from './CycleSelector';
 import { CycleType, CycleDateRange } from '../../types';
@@ -50,9 +51,9 @@ const Layout: React.FC<LayoutProps> = ({
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Desktop Sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto glass-morphism border-r border-gray-200 dark:border-gray-700 px-6 pb-4">
+        <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 px-6 pb-4 shadow-sm">
           <div className="flex h-16 shrink-0 items-center justify-between">
-            <h1 className="text-2xl font-bold text-gradient">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               💳 Cashback
             </h1>
           </div>
@@ -61,10 +62,10 @@ const Layout: React.FC<LayoutProps> = ({
       </div>
 
       {/* Mobile Header */}
-      <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-white dark:bg-gray-800 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+      <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-white dark:bg-gray-800 px-4 py-4 shadow-md sm:px-6 lg:hidden">
         <button
           type="button"
-          className="-m-2.5 p-2.5 text-gray-700 dark:text-gray-200 lg:hidden"
+          className="-m-2.5 p-2.5 text-gray-700 dark:text-gray-200 lg:hidden hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
           onClick={() => setMobileMenuOpen(true)}
         >
           <span className="sr-only">Open sidebar</span>
@@ -88,6 +89,7 @@ const Layout: React.FC<LayoutProps> = ({
                 });
                 document.dispatchEvent(event);
               }}
+              className="hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               <SearchIcon />
             </IconButton>
@@ -98,7 +100,7 @@ const Layout: React.FC<LayoutProps> = ({
               <IconButton 
                 size="small"
                 onClick={onAddTransaction}
-                className="text-purple-600 add-transaction-button"
+                className="text-purple-600 add-transaction-button hover:bg-purple-50 dark:hover:bg-purple-900/20"
               >
                 <AddIcon />
               </IconButton>
@@ -107,43 +109,64 @@ const Layout: React.FC<LayoutProps> = ({
         </div>
       </div>
 
-      {/* Mobile sidebar - same as before */}
-      <div className={`lg:hidden ${mobileMenuOpen ? 'relative z-50' : 'hidden'}`}>
-        <div
-          className={`fixed inset-0 bg-gray-900/80 ${
-            mobileMenuOpen ? 'opacity-100' : 'opacity-0'
-          } transition-opacity duration-300`}
-          onClick={() => setMobileMenuOpen(false)}
-        />
+      {/* Mobile Sidebar */}
+<AnimatePresence>
+  {mobileMenuOpen && (
+    <div className="lg:hidden fixed inset-0 z-50">
+      {/* Backdrop */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        className="fixed inset-0 bg-black/60"
+        onClick={() => setMobileMenuOpen(false)}
+      />
 
-        <div className="fixed inset-0 flex">
-          <div
-            className={`relative mr-16 flex w-full max-w-xs flex-1 transform ${
-              mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-            } transition duration-300 ease-in-out`}
-          >
-            <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
-              <button
-                type="button"
-                className="-m-2.5 p-2.5"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span className="sr-only">Close sidebar</span>
-                <CloseIcon className="h-6 w-6 text-white" aria-hidden="true" />
-              </button>
-            </div>
-
-            <div className="flex grow flex-col gap-y-5 overflow-y-auto glass-morphism px-6 pb-4 ring-1 ring-white/10">
-              <div className="flex h-16 shrink-0 items-center">
-                <h1 className="text-2xl font-bold text-gradient">
-                  💳 Cashback
-                </h1>
-              </div>
-              <NavBar onClose={() => setMobileMenuOpen(false)} />
-            </div>
+      {/* Sidebar Panel */}
+      <div className="fixed inset-0 flex">
+        <motion.div
+          initial={{ x: '-100%' }}
+          animate={{ x: 0 }}
+          exit={{ x: '-100%' }}
+          transition={{ 
+            type: 'spring',
+            stiffness: 300,
+            damping: 30,
+          }}
+          className="relative mr-16 flex w-full max-w-xs flex-1"
+        >
+          {/* Close Button */}
+          <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
+            <motion.button
+              type="button"
+              className="p-2.5 bg-gray-800 rounded-full shadow-lg border border-gray-700"
+              onClick={() => setMobileMenuOpen(false)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <span className="sr-only">Close sidebar</span>
+              <CloseIcon className="h-6 w-6 text-gray-300" />
+            </motion.button>
           </div>
-        </div>
+
+          {/* Sidebar Content - Black/Dark */}
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-4 shadow-2xl bg-gradient-to-b from-gray-900 via-black to-gray-900">
+            {/* Header */}
+            <div className="flex h-16 shrink-0 items-center border-b border-gray-800">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                💳 Cashback
+              </h1>
+            </div>
+            
+            {/* Navigation */}
+            <NavBar onClose={() => setMobileMenuOpen(false)} />
+          </div>
+        </motion.div>
       </div>
+    </div>
+  )}
+</AnimatePresence>
 
       {/* Main content */}
       <main className="lg:pl-72">
@@ -159,9 +182,13 @@ const Layout: React.FC<LayoutProps> = ({
           </div>
 
           {/* Page content */}
-          <div className="animate-fade-in">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
             {children}
-          </div>
+          </motion.div>
         </div>
       </main>
     </div>
